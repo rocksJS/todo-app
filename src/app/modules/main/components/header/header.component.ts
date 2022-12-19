@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 @Component({
   selector: 'todo-header',
@@ -7,7 +9,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  constructor(public dialogRef: MatDialog) {}
 
   ngOnInit(): void {}
+
+  public openAddTask() {
+    const dialogRef = this.dialogRef.open(AddTaskComponent);
+  }
 }
