@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  apiURL: 'https://todo-app-d9cb5-default-rtdb.firebaseio.com/',
   production: false,
 };
 

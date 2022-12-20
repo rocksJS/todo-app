@@ -1,7 +1,7 @@
-<mat-selection-list color="warn" #shoes>
-  <mat-list-option *ngFor="let shoe of typesOfShoes" [selected]="shoe.isSelected">
-    {{ shoe.name }}
-  </mat-list-option>
-</mat-selection-list>
-
-<p>Options selected: {{ shoes.selectedOptions.selected.length }}</p>
+<div class="container">
+  <mat-selection-list (selectionChange)="isChanged($event.option.value)" color="warn" #shoes>
+    <mat-list-option *ngFor="let todo of todos$ | async" [selected]="todo.isSelected" [value]="todo.title">
+      {{ todo.title | uppercase }}
+    </mat-list-option>
+  </mat-selection-list>
+</div>

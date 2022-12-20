@@ -1,5 +1,6 @@
-<h1 mat-dialog-title>Dialog with elements</h1>
-<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+<div class="container">
+  <form class="form" [formGroup]="todoForm" (ngSubmit)="todoSubmit()">
+    <todo-input formControlName="title"></todo-input>
+    <button type="submit" mat-raised-button color="warn">Add todo</button>
+  </form>
 </div>
