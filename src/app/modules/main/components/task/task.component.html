@@ -1,1 +1,7 @@
-<p>task works!</p>
+<mat-selection-list color="warn" #shoes>
+  <mat-list-option *ngFor="let shoe of typesOfShoes" [selected]="shoe.isSelected">
+    {{ shoe.name }}
+  </mat-list-option>
+</mat-selection-list>
+
+<p>Options selected: {{ shoes.selectedOptions.selected.length }}</p>
