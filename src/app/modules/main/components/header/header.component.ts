@@ -19,5 +19,7 @@ export class HeaderComponent implements OnInit {
     const dialogRef = this.dialogRef.open(AddTaskComponent);
   }
 
-  // сделать метод на удаление получение всех айдишек с ngrx у кого isSelected = true
+  public deleteSelectedTodos() {
+    // сделать метод на удаление получение всех айдишек с ngrx у кого isSelected = true через диспачь
+  }
 }
