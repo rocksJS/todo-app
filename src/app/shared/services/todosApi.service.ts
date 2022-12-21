@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ITodo } from '../interfaces/todo.interface';
-import { todoIdMapper } from '../utils/firebase-id-mapper';
+import { todoIdMapper } from '../utils/todo-id-mapper';
 
 @Injectable({ providedIn: 'root' })
 export class TodosApiService {
@@ -26,7 +26,15 @@ export class TodosApiService {
     return this.http.post<ITodo>(environment.apiURL + this.endPoints.todos + '.json', todo);
   }
 
-  public deleteTask(todoId: string): Observable<string> {
+  public deleteTaskById(todoId: string): Observable<string> {
     return this.http.delete<string>(environment.apiURL + this.endPoints.todos + '/' + todoId);
+  }
+
+  public updateTodoSelectionState(todo: ITodo): Observable<ITodo> {
+    todo.isSelected = !todo.isSelected;
+    return this.http.put<any>(environment.apiURL + this.endPoints.todos + '/' + todo.id + '.json', todo);
+  }
+  public getSelectedTodos(): Observable<ITodo[]> {
+    return this.getTodos().pipe(map((todo) => todo.filter((item) => item.isSelected)));
   }
 }

@@ -1,10 +1,13 @@
 <div class="container">
-  <h1 class="title">TODO LIST</h1>
+  <h1 [routerLink]="''" class="title">TODO LIST</h1>
   <div class="buttons">
-    <button mat-icon-button color="accent" aria-label="Example icon button with a heart icon">
+    <button [routerLink]="settingsPath.path" mat-icon-button color="accent">
       <mat-icon>settings</mat-icon>
     </button>
-    <button (click)="openAddTask()" mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+    <button mat-icon-button color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button (click)="openAddTask()" mat-icon-button color="warn">
       <mat-icon>add_box</mat-icon>
     </button>
   </div>

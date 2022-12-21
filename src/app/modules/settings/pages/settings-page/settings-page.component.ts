@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'todo-setting-page',
-  templateUrl: './setting-page.component.html',
-  styleUrls: ['./setting-page.component.scss'],
+  selector: 'todo-settings-page',
+  templateUrl: './settings-page.component.html',
+  styleUrls: ['./settings-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingPageComponent implements OnInit {
+export class SettingsPageComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}

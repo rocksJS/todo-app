@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SettingPageComponent } from './pages/setting-page/setting-page.component';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SettingPageComponent,
+    component: SettingsPageComponent,
   },
 ];
 

@@ -1,0 +1,7 @@
+<div class="container">
+  <mat-selection-list color="warn">
+    <mat-list-option (click)="isChanged(todo)" *ngFor="let todo of todos$ | async" [selected]="todo.isSelected">
+      {{ todo.title | uppercase }}
+    </mat-list-option>
+  </mat-selection-list>
+</div>
