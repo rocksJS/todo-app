@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
 import { MatDialog } from '@angular/material/dialog';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { SETTINGS_PATH } from 'src/app/shared/constants/route-path.consts';
+import { TodosApiService } from 'src/app/shared/services/todosApi.service';
 @Component({
   selector: 'todo-header',
   templateUrl: './header.component.html',
@@ -11,7 +12,7 @@ import { SETTINGS_PATH } from 'src/app/shared/constants/route-path.consts';
 export class HeaderComponent implements OnInit {
   public settingsPath = SETTINGS_PATH;
 
-  constructor(public dialogRef: MatDialog) {}
+  constructor(public dialogRef: MatDialog, private todosApiService: TodosApiService) {}
 
   ngOnInit(): void {}
 
@@ -20,6 +21,6 @@ export class HeaderComponent implements OnInit {
   }
 
   public deleteSelectedTodos() {
-    // сделать метод на удаление получение всех айдишек с ngrx у кого isSelected = true через диспачь
+    this.todosApiService.deleteSelectedTodos().subscribe();
   }
 }

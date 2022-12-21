@@ -1,6 +1,6 @@
 <div class="container">
   <form class="form" [formGroup]="todoForm" (ngSubmit)="todoSubmit()">
-    <todo-input formControlName="title"></todo-input>
+    <todo-input class="input" formControlName="title"></todo-input>
     <button [disabled]="todoForm.invalid" type="submit" mat-raised-button color="warn">Add todo</button>
   </form>
 </div>
