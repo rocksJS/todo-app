@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddTaskComponent } from '../add-task/add-task.component';
+import { Store } from '@ngrx/store';
+import { deleteSelectedTodos } from 'src/app/ngrx/actions/todo.actions';
 import { SETTINGS_PATH } from 'src/app/shared/constants/route-path.consts';
-import { TodosApiService } from 'src/app/shared/services/todosApi.service';
+import { AddTaskComponent } from '../add-task/add-task.component';
 @Component({
   selector: 'todo-header',
   templateUrl: './header.component.html',
@@ -10,17 +11,17 @@ import { TodosApiService } from 'src/app/shared/services/todosApi.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  public settingsPath = SETTINGS_PATH;
+  public readonly settingsPath = SETTINGS_PATH;
 
-  constructor(public dialogRef: MatDialog, private todosApiService: TodosApiService) {}
+  constructor(public dialogRef: MatDialog, private store: Store) {}
 
   ngOnInit(): void {}
 
-  public openAddTask() {
-    const dialogRef = this.dialogRef.open(AddTaskComponent);
+  public openAddTask(): void {
+    this.dialogRef.open(AddTaskComponent);
   }
 
-  public deleteSelectedTodos() {
-    this.todosApiService.deleteSelectedTodos().subscribe();
+  public deleteSelectedTodos(): void {
+    this.store.dispatch(deleteSelectedTodos());
   }
 }

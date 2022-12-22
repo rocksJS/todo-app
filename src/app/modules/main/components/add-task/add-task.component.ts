@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { TodosApiService } from 'src/app/shared/services/todosApi.service';
+import { MatDialog } from '@angular/material';
+import { Store } from '@ngrx/store';
+import { createTodo } from 'src/app/ngrx/actions/todo.actions';
 import { markAllAsDirty } from 'src/app/shared/utils/mark-all-as-dirty';
 
 @Component({
@@ -13,7 +14,7 @@ import { markAllAsDirty } from 'src/app/shared/utils/mark-all-as-dirty';
 export class AddTaskComponent implements OnInit {
   public todoForm: FormGroup;
 
-  constructor(private todoApiService: TodosApiService, private fb: FormBuilder, private dialogRef: MatDialog) {}
+  constructor(private fb: FormBuilder, private dialogRef: MatDialog, private store: Store) {}
 
   ngOnInit(): void {
     this.todoForm = this.fb.group({
@@ -28,7 +29,7 @@ export class AddTaskComponent implements OnInit {
       markAllAsDirty(this.todoForm);
       return;
     }
-    this.todoApiService.createTodo(this.todoForm.getRawValue()).subscribe();
+    this.store.dispatch(createTodo({ todo: this.todoForm.getRawValue() }));
     this.dialogRef.closeAll();
   }
 }

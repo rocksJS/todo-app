@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadTodos, updateTodo } from 'src/app/ngrx/actions/todo.actions';
@@ -10,12 +11,12 @@ import { TodosApiService } from 'src/app/shared/services/todosApi.service';
   selector: 'todo-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TaskListComponent implements OnInit {
   public todos$: Observable<ITodo[]>;
 
-  constructor(private todosApiService: TodosApiService, private store: Store, private cdR: ChangeDetectorRef) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.todos$ = this.store.select(todosSelector);

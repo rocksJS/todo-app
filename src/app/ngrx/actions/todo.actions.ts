@@ -7,13 +7,19 @@ export const loadTodosSuccess = createAction('[TODOS] Load Todos Success', props
 
 export const loadTodosFailure = createAction('[TODOS] Load Todos Failure', props<{ error: string }>());
 
+export const createTodo = createAction('[TODOS] Create Todo', props<{ todo: ITodo }>());
+
+export const createTodoSuccess = createAction('[TODOS] Create Todo Success', props<{ todo: ITodo }>());
+
+export const createTodoFailure = createAction('[TODOS] Create Todo Failure', props<{ error: string }>());
+
 export const updateTodo = createAction('[TODOS] Update Todo', props<{ todo: ITodo }>());
 
-export const updateTodoSuccess = createAction('[TODOS] Update Todo Success', props<{ todos: ITodo }>());
+export const updateTodoSuccess = createAction('[TODOS] Update Todo Success', props<{ todo: ITodo }>());
 
 export const updateTodoFailure = createAction('[TODOS] Update Todo Failure', props<{ error: string }>());
 
-export const deleteSelectedTodos = createAction('[TODOS] Deleted Selected Todos', props<{ todos: ITodo }>());
+export const deleteSelectedTodos = createAction('[TODOS] Deleted Selected Todos');
 
 export const deleteSelectedTodosSuccess = createAction('[TODOS] Delete Selected Todos Success', props<{ todos: ITodo }>());
 

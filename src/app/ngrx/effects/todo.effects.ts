@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap } from 'rxjs';
+import { ITodo } from 'src/app/shared/interfaces/todo.interface';
 import { TodosApiService } from 'src/app/shared/services/todosApi.service';
 import {
+  createTodo,
+  createTodoFailure,
+  createTodoSuccess,
   deleteSelectedTodos,
   deleteSelectedTodosFailure,
   deleteSelectedTodosSuccess,
@@ -31,27 +35,39 @@ export class TodosEffects {
     ),
   );
 
+  deleteSelectedTodos$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteSelectedTodos),
+      switchMap(() =>
+        this.todosApiService.deleteSelectedTodos().pipe(
+          map((todos: any) => deleteSelectedTodosSuccess({ todos })),
+          catchError((error) => of(deleteSelectedTodosFailure({ error }))),
+        ),
+      ),
+    ),
+  );
+
   updateTodo$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateTodo),
       switchMap((action) =>
         this.todosApiService.updateTodoSelectionState(action.todo).pipe(
-          map((todos) => updateTodoSuccess({ todos })),
+          map((todo) => updateTodoSuccess({ todo })),
           catchError((error) => of(updateTodoFailure({ error }))),
         ),
       ),
     ),
   );
 
-  // deleteSelectedTodos$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(deleteSelectedTodos),
-  //     switchMap((action) =>
-  //       this.todosApiService.deleteTaskById(action.todos).pipe(
-  //         map((todos) => deleteSelectedTodosSuccess({ todos })),
-  //         catchError((error) => of(deleteSelectedTodosFailure({ error }))),
-  //       ),
-  //     ),
-  //   ),
-  // );
+  createTodo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createTodo),
+      switchMap((action) =>
+        this.todosApiService.createTodo(action.todo).pipe(
+          map((todo) => createTodoSuccess({ todo })),
+          catchError((error) => of(createTodoFailure({ error }))),
+        ),
+      ),
+    ),
+  );
 }

@@ -18,7 +18,6 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
     MatButtonModule,
     MatDialogModule,
     MatListModule,
-    FormsModule,
     ReactiveFormsModule,
     MatInputModule,
   ],
