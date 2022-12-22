@@ -6,6 +6,9 @@ import { loadTodos, updateTodo } from 'src/app/ngrx/actions/todo.actions';
 import { todosSelector } from 'src/app/ngrx/selectors/todo.selectors';
 import { ITodo } from 'src/app/shared/interfaces/todo.interface';
 import { TodosApiService } from 'src/app/shared/services/todosApi.service';
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { RealtimeDatabaseService } from 'src/app/shared/services/realtime-database.service';
 
 @Component({
   selector: 'todo-task-list',
@@ -16,14 +19,18 @@ import { TodosApiService } from 'src/app/shared/services/todosApi.service';
 export class TaskListComponent implements OnInit {
   public todos$: Observable<ITodo[]>;
 
-  constructor(private store: Store) {}
+  public todosCollection$: any;
+
+  constructor(private store: Store, private realtimeDbService: RealtimeDatabaseService) {
+    //this.todosCollection$ = realtimeDb.getTodos(); // РАБОТАЕТ!
+  }
 
   ngOnInit(): void {
-    this.todos$ = this.store.select(todosSelector);
     this.store.dispatch(loadTodos());
+    this.todos$ = this.store.select(todosSelector);
   }
 
   public todoChangeSelection(todo: ITodo): void {
-    this.store.dispatch(updateTodo({ todo: todo }));
+    this.realtimeDbService.updateTodo(todo);
   }
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, from, take } from 'rxjs';
 import { ITodo } from 'src/app/shared/interfaces/todo.interface';
+import { RealtimeDatabaseService } from 'src/app/shared/services/realtime-database.service';
 import { TodosApiService } from 'src/app/shared/services/todosApi.service';
 import {
   createTodo,
@@ -21,13 +22,19 @@ import {
 
 @Injectable()
 export class TodosEffects {
-  constructor(private actions$: Actions, private store: Store, private todosApiService: TodosApiService) {}
+  constructor(
+    private actions$: Actions,
+    private store: Store,
+    private todosApiService: TodosApiService,
+    private realtimeDbService: RealtimeDatabaseService,
+  ) {}
 
-  loadEmployees$ = createEffect(() =>
+  loadTodos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadTodos),
       switchMap(() =>
-        this.todosApiService.getTodos().pipe(
+        this.realtimeDbService.getTodos().pipe(
+          take(1),
           map((todos: any) => loadTodosSuccess({ todos })),
           catchError((error) => of(loadTodosFailure({ error }))),
         ),
@@ -42,18 +49,6 @@ export class TodosEffects {
         this.todosApiService.deleteSelectedTodos().pipe(
           map((todos: any) => deleteSelectedTodosSuccess({ todos })),
           catchError((error) => of(deleteSelectedTodosFailure({ error }))),
-        ),
-      ),
-    ),
-  );
-
-  updateTodo$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(updateTodo),
-      switchMap((action) =>
-        this.todosApiService.updateTodoSelectionState(action.todo).pipe(
-          map((todo) => updateTodoSuccess({ todo })),
-          catchError((error) => of(updateTodoFailure({ error }))),
         ),
       ),
     ),
