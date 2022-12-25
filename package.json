@@ -7,13 +7,15 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint --ext .js --ignore-path .gitignore ."
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
   "private": true,
   "dependencies": {
+    "@angular-eslint/eslint-plugin-template": "^15.1.0",
     "@angular/animations": "^14.1.0",
     "@angular/cdk": "~8.2.3",
     "@angular/common": "^14.1.0",
@@ -28,6 +30,7 @@
     "@ngrx/effects": "^14.3.2",
     "@ngrx/store": "^14.3.2",
     "@ngrx/store-devtools": "^14.3.2",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "fire": "^0.55.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
@@ -35,6 +38,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.1.1",
+    "@angular-eslint/eslint-plugin": "^15.1.0",
     "@angular/cli": "~14.1.1",
     "@angular/compiler-cli": "^14.1.0",
     "@types/jasmine": "~4.0.0",
@@ -42,6 +46,7 @@
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.30.0",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^24.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.6.0",

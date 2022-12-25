@@ -36,9 +36,11 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   public writeValue(value: string | null): void {
     this.control.setValue(value);
   }
+
   public registerOnChange(fn: (value: string | null) => void): void {
     this.onChange = fn;
   }
+
   public registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }

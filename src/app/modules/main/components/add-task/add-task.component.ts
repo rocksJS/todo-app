@@ -29,6 +29,7 @@ export class AddTaskComponent implements OnInit {
       markAllAsDirty(this.todoForm);
       return;
     }
+
     this.store.dispatch(createTodo({ todo: this.todoForm.getRawValue() }));
     this.dialogRef.closeAll();
   }

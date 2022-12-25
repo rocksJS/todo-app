@@ -9,13 +9,13 @@ export const loadTodosFailure = createAction('[TODOS] Load Todos Failure', props
 
 export const createTodo = createAction('[TODOS] Create Todo', props<{ todo: ITodo }>());
 
-export const createTodoSuccess = createAction('[TODOS] Create Todo Success', props<{ todo: ITodo }>());
+export const createTodoSuccess = createAction('[TODOS] Create Todo Success');
 
 export const createTodoFailure = createAction('[TODOS] Create Todo Failure', props<{ error: string }>());
 
 export const updateTodo = createAction('[TODOS] Update Todo', props<{ todo: ITodo }>());
 
-export const updateTodoSuccess = createAction('[TODOS] Update Todo Success', props<{ todo: ITodo }>());
+export const updateTodoSuccess = createAction('[TODOS] Update Todo Success');
 
 export const updateTodoFailure = createAction('[TODOS] Update Todo Failure', props<{ error: string }>());
 

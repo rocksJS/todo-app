@@ -1,5 +1,4 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { ITodo } from 'src/app/shared/interfaces/todo.interface';
 import { environment } from 'src/environments/environment';
 import { ITodoState, todoReducer } from './todo.reducers';
 

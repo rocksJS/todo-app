@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { catchError, map, of, switchMap, from, take } from 'rxjs';
-import { ITodo } from 'src/app/shared/interfaces/todo.interface';
+import { catchError, map, of, switchMap, take } from 'rxjs';
 import { RealtimeDatabaseService } from 'src/app/shared/services/realtime-database.service';
-import { TodosApiService } from 'src/app/shared/services/todosApi.service';
 import {
   createTodo,
   createTodoFailure,
@@ -22,19 +19,13 @@ import {
 
 @Injectable()
 export class TodosEffects {
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private todosApiService: TodosApiService,
-    private realtimeDbService: RealtimeDatabaseService,
-  ) {}
+  constructor(private actions$: Actions, private realtimeDbService: RealtimeDatabaseService) {}
 
   loadTodos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadTodos),
       switchMap(() =>
         this.realtimeDbService.getTodos().pipe(
-          take(1),
           map((todos: any) => loadTodosSuccess({ todos })),
           catchError((error) => of(loadTodosFailure({ error }))),
         ),
@@ -46,8 +37,9 @@ export class TodosEffects {
     this.actions$.pipe(
       ofType(deleteSelectedTodos),
       switchMap(() =>
-        this.todosApiService.deleteSelectedTodos().pipe(
-          map((todos: any) => deleteSelectedTodosSuccess({ todos })),
+        this.realtimeDbService.deleteSelectedTodos().pipe(
+          take(1),
+          switchMap((todos: any) => [deleteSelectedTodosSuccess({ todos }), loadTodos()]),
           catchError((error) => of(deleteSelectedTodosFailure({ error }))),
         ),
       ),
@@ -58,9 +50,21 @@ export class TodosEffects {
     this.actions$.pipe(
       ofType(createTodo),
       switchMap((action) =>
-        this.todosApiService.createTodo(action.todo).pipe(
-          map((todo) => createTodoSuccess({ todo })),
+        this.realtimeDbService.createTodo(action.todo).pipe(
+          switchMap(() => [createTodoSuccess(), loadTodos()]),
           catchError((error) => of(createTodoFailure({ error }))),
+        ),
+      ),
+    ),
+  );
+
+  updateTodo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateTodo),
+      switchMap((action) =>
+        this.realtimeDbService.updateTodo(action.todo).pipe(
+          switchMap(() => [updateTodoSuccess(), loadTodos()]),
+          catchError((error) => of(updateTodoFailure({ error }))),
         ),
       ),
     ),

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { deleteSelectedTodos } from 'src/app/ngrx/actions/todo.actions';
@@ -10,12 +10,10 @@ import { AddTaskComponent } from '../add-task/add-task.component';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   public readonly settingsPath = SETTINGS_PATH;
 
   constructor(public dialogRef: MatDialog, private store: Store) {}
-
-  ngOnInit(): void {}
 
   public openAddTask(): void {
     this.dialogRef.open(AddTaskComponent);

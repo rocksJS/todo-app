@@ -10,8 +10,14 @@
         "createDefaultProgram": true
       },
 
-      "extends": ["plugin:@angular-eslint/recommended", "plugin:@angular-eslint/template/process-inline-templates"],
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
       "rules": {
+        "import/no-extraneous-dependencies": "0",
+        "no-empty-function": ["error", { "allow": ["constuctors"] }],
+        "@angular-eslint/no-empty-lifecycle-method": "error",
         "@angular-eslint/directive-selector": [
           "error",
           {
