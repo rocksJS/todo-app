@@ -16,5 +16,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 410px;
+  width: 406px;
+}
+
+.no-todos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 75px;
+
+  &-template {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &-img {
+    width: 50%;
+  }
 }

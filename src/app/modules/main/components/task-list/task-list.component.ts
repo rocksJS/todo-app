@@ -15,7 +15,7 @@ import { ITodo } from 'src/app/shared/interfaces/todo.interface';
 export class TaskListComponent implements OnInit {
   public todos$: Observable<ITodo[]>;
 
-  constructor(private store: Store, private cdR: ChangeDetectorRef) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadTodos());

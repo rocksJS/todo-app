@@ -19,6 +19,7 @@ export class RealtimeDatabaseService {
   public readonly todosRef = this.realtimeDb.list<ITodo>(this.endPoints.todos);
 
   public getTodos(): Observable<ITodo[]> {
+    // в firebase realtime db только подписка на изменения в рилтайм.
     return this.http.get(environment.apiURL + this.endPoints.todos + this.endPoints.json).pipe(
       map((item) => {
         if (item) {
@@ -32,7 +33,7 @@ export class RealtimeDatabaseService {
           });
         }
 
-        return [];
+        return null;
       }),
     );
   }
