@@ -24,3 +24,9 @@ export const deleteSelectedTodos = createAction('[TODOS] Deleted Selected Todos'
 export const deleteSelectedTodosSuccess = createAction('[TODOS] Delete Selected Todos Success', props<{ todos: ITodo }>());
 
 export const deleteSelectedTodosFailure = createAction('[TODOS] Delete Selected Todos Failure', props<{ error: string }>());
+
+export const deleteExpiredTodos = createAction('[SETTINGS] Delete Expired Todos');
+
+export const deleteExpiredTodosSuccess = createAction('[SETTINGS] Delete Expired Todos Success');
+
+export const deleteExpiredTodosFailure = createAction('[SETTINGS] Delete Expired Todos Failure', props<{ error: string }>());

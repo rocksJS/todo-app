@@ -24,7 +24,7 @@ module.exports = {
         "plugin:prettier/recommended",
       ],
       rules: {
-        "import/no-extraneous-dependencies": "0",
+        "import/no-extraneous-dependencies": 0,
         "no-empty-function": ["error", { allow: ["constructors"] }],
         "@angular-eslint/no-empty-lifecycle-method": "error",
         "import/named": "off",

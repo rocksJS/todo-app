@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,7 @@ import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputComponent implements OnInit, ControlValueAccessor {
+export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
   public value = '';
 
   public control = new FormControl(null);

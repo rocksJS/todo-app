@@ -15,7 +15,7 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "import/no-extraneous-dependencies": "0",
+        "import/no-extraneous-dependencies": 0,
         "no-empty-function": ["error", { "allow": ["constuctors"] }],
         "@angular-eslint/no-empty-lifecycle-method": "error",
         "@angular-eslint/directive-selector": [

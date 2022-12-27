@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, take } from 'rxjs';
-import { RealtimeDatabaseService } from 'src/app/shared/services/realtime-database.service';
+import { TodosApiService } from 'src/app/shared/services/todos-api.service';
 import {
   createTodo,
   createTodoFailure,
   createTodoSuccess,
+  deleteExpiredTodos,
+  deleteExpiredTodosFailure,
+  deleteExpiredTodosSuccess,
   deleteSelectedTodos,
   deleteSelectedTodosFailure,
   deleteSelectedTodosSuccess,
@@ -19,13 +22,13 @@ import {
 
 @Injectable()
 export class TodosEffects {
-  constructor(private actions$: Actions, private realtimeDbService: RealtimeDatabaseService) {}
+  constructor(private actions$: Actions, private todosApiService: TodosApiService) {}
 
   loadTodos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadTodos),
       switchMap(() =>
-        this.realtimeDbService.getTodos().pipe(
+        this.todosApiService.getTodos().pipe(
           map((todos: any) => loadTodosSuccess({ todos })),
           catchError((error) => of(loadTodosFailure({ error }))),
         ),
@@ -37,7 +40,7 @@ export class TodosEffects {
     this.actions$.pipe(
       ofType(deleteSelectedTodos),
       switchMap(() =>
-        this.realtimeDbService.deleteSelectedTodos().pipe(
+        this.todosApiService.deleteSelectedTodos().pipe(
           take(1),
           switchMap((todos: any) => [deleteSelectedTodosSuccess({ todos }), loadTodos()]),
           catchError((error) => of(deleteSelectedTodosFailure({ error }))),
@@ -50,7 +53,7 @@ export class TodosEffects {
     this.actions$.pipe(
       ofType(createTodo),
       switchMap((action) =>
-        this.realtimeDbService.createTodo(action.todo).pipe(
+        this.todosApiService.createTodo(action.todo).pipe(
           switchMap(() => [createTodoSuccess(), loadTodos()]),
           catchError((error) => of(createTodoFailure({ error }))),
         ),
@@ -62,9 +65,22 @@ export class TodosEffects {
     this.actions$.pipe(
       ofType(updateTodo),
       switchMap((action) =>
-        this.realtimeDbService.updateTodo(action.todo).pipe(
+        this.todosApiService.updateTodo(action.todo).pipe(
           switchMap(() => [updateTodoSuccess(), loadTodos()]),
           catchError((error) => of(updateTodoFailure({ error }))),
+        ),
+      ),
+    ),
+  );
+
+  deleteExpiredTodos$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteExpiredTodos),
+      switchMap(() =>
+        this.todosApiService.deleteExpiredTodos().pipe(
+          take(2),
+          switchMap(() => [deleteExpiredTodosSuccess(), loadTodos()]),
+          catchError((error) => of(deleteExpiredTodosFailure({ error }))),
         ),
       ),
     ),
