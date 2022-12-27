@@ -1,5 +1,7 @@
-<mat-selection-list (selectionChange)="changeIsDeleteExpTodos($event)" color="warn">
-  <mat-list-option *ngFor="let setting of settings$ | async" [selected]="setting.isDeleteExpiredTodos.value">
-    {{ setting.isDeleteExpiredTodos.title }}
-  </mat-list-option>
-</mat-selection-list>
+<div class="container">
+  <mat-selection-list (selectionChange)="changeIsDeleteExpTodos($event)" color="warn">
+    <mat-list-option *ngFor="let setting of settings$ | async" [selected]="setting.isDeleteExpiredTodos.value">
+      {{ setting.isDeleteExpiredTodos.title }}
+    </mat-list-option>
+  </mat-selection-list>
+</div>
