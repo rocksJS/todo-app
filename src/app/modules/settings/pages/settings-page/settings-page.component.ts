@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { changeTemporaryTaskDelete, loadSettings } from 'src/app/ngrx/actions/settings.action';
 import { settingsSelector } from 'src/app/ngrx/selectors/settings.selectors';
-import { SettingsApiService } from 'src/app/shared/services/settings-api.service';
 
 @Component({
   selector: 'todo-settings-page',
@@ -15,12 +14,11 @@ import { SettingsApiService } from 'src/app/shared/services/settings-api.service
 export class SettingsPageComponent implements OnInit {
   public settings$: Observable<any>;
 
-  constructor(private settingsApiService: SettingsApiService, private store: Store) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadSettings());
     this.settings$ = this.store.select(settingsSelector);
-    // this.store.select(settingsSelector).subscribe((x) => console.log(x));
   }
 
   public changeIsDeleteExpTodos(event: MatSelectionListChange) {

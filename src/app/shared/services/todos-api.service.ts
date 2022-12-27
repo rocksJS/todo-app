@@ -25,7 +25,6 @@ export class TodosApiService {
   public readonly todosRef = this.realtimeDb.list<ITodo>(this.endPoints.todos);
 
   public getTodos(): Observable<ITodo[]> {
-    // в firebase realtime db только подписка на изменения в рилтайм.
     return this.http.get(environment.apiURL + this.endPoints.todos + this.endPoints.json).pipe(
       map((item) => {
         if (item) {
@@ -61,7 +60,7 @@ export class TodosApiService {
   }
 
   public getExpiredSelectedTodos(): Observable<any> {
-    return this.getSelectedTodos().pipe(map((todos) => todos.filter((todo) => (Date.now() - todo.expDate > 10000 ? true : false))));
+    return this.getSelectedTodos().pipe(map((todos) => todos.filter((todo) => (Date.now() - todo.expDate > 86400000 ? true : false))));
   }
 
   public deleteExpiredTodos(): Observable<any> {
@@ -71,5 +70,3 @@ export class TodosApiService {
     return of(new Error());
   }
 }
-
-//86400000

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { loadTodos, updateTodo } from 'src/app/ngrx/actions/todo.actions';
 import { todosSelector } from 'src/app/ngrx/selectors/todo.selectors';
 import { ITodo } from 'src/app/shared/interfaces/todo.interface';
-import { TodosApiService } from 'src/app/shared/services/todos-api.service';
 
 @Component({
   selector: 'todo-task-list',
@@ -16,12 +15,11 @@ import { TodosApiService } from 'src/app/shared/services/todos-api.service';
 export class TaskListComponent implements OnInit {
   public todos$: Observable<ITodo[]>;
 
-  constructor(private store: Store, private todosApiService: TodosApiService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadTodos());
     this.todos$ = this.store.select(todosSelector);
-    // this.todosApiService.deleteExpiredTodos().subscribe();
   }
 
   public changeTodoSelection(event: MatSelectionListChange) {

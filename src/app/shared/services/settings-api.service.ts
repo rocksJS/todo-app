@@ -24,7 +24,6 @@ export class SettingsApiService {
         if (item) {
           const values = Object.values(item);
           const ids = Object.keys(item);
-
           return values.map((elem, index) => {
             elem.id = ids[index];
 
