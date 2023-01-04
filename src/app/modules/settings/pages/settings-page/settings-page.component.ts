@@ -21,7 +21,6 @@ export class SettingsPageComponent implements OnInit {
   }
 
   public changeIsDeleteExpTodos(event: MatSelectionListChange) {
-    console.log(event.option);
     this.store.dispatch(changeTemporaryTaskDelete({ setting: event.option.selected }));
   }
 }

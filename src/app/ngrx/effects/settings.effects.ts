@@ -20,7 +20,9 @@ export class SettingsEffects {
       ofType(loadSettings),
       switchMap(() =>
         this.settingsApiService.getSettings().pipe(
-          map((settings: any) => loadSettingsSuccess({ settings })),
+          map((settings: any) => {
+            return loadSettingsSuccess({ settings });
+          }),
           catchError((error) => of(loadSettingsFailure({ error }))),
         ),
       ),
