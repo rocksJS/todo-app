@@ -27,7 +27,7 @@ export class SettingsEffects {
     ),
   );
 
-  updateTemporaryClearExpiredTaskState$ = createEffect(() =>
+  changeTemporaryTaskDelete$ = createEffect(() =>
     this.actions$.pipe(
       ofType(changeTemporaryTaskDelete),
       switchMap((action) => {

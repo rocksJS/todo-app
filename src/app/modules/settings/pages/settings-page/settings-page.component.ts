@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { changeTemporaryTaskDelete, loadSettings } from 'src/app/ngrx/actions/settings.action';
+import { changeTemporaryTaskDelete } from 'src/app/ngrx/actions/settings.action';
 import { settingsSelector } from 'src/app/ngrx/selectors/settings.selectors';
 
 @Component({
@@ -17,11 +17,11 @@ export class SettingsPageComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(loadSettings());
     this.settings$ = this.store.select(settingsSelector);
   }
 
   public changeIsDeleteExpTodos(event: MatSelectionListChange) {
+    console.log(event.option);
     this.store.dispatch(changeTemporaryTaskDelete({ setting: event.option.selected }));
   }
 }
