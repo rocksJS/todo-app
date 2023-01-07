@@ -4,12 +4,10 @@ import { loadTodosSuccess } from '../actions/todo.actions';
 
 export interface ITodoState {
   todos: ITodo | any;
-  deletedTodo: ITodo | any;
 }
 
 const initialState: ITodoState = {
   todos: [],
-  deletedTodo: [],
 };
 
 export const todoReducer = createReducer(

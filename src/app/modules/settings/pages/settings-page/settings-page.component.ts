@@ -20,7 +20,7 @@ export class SettingsPageComponent implements OnInit {
     this.settings$ = this.store.select(settingsSelector);
   }
 
-  public changeIsDeleteExpTodos(event: MatSelectionListChange) {
+  public changeIsDeleteExpTodos(event: MatSelectionListChange): void {
     this.store.dispatch(changeTemporaryTaskDelete({ setting: event.option.selected }));
   }
 }

@@ -29,6 +29,7 @@ export class TodosEffects {
       ofType(loadTodos),
       switchMap(() =>
         this.todosApiService.getTodos().pipe(
+          take(1),
           map((todos: any) => loadTodosSuccess({ todos })),
           catchError((error) => of(loadTodosFailure({ error }))),
         ),
@@ -54,6 +55,7 @@ export class TodosEffects {
       ofType(createTodo),
       switchMap((action) =>
         this.todosApiService.createTodo(action.todo).pipe(
+          take(1),
           switchMap(() => [createTodoSuccess(), loadTodos()]),
           catchError((error) => of(createTodoFailure({ error }))),
         ),
@@ -66,6 +68,7 @@ export class TodosEffects {
       ofType(updateTodo),
       switchMap((action) =>
         this.todosApiService.updateTodo(action.todo).pipe(
+          take(1),
           switchMap(() => [updateTodoSuccess(), loadTodos()]),
           catchError((error) => of(updateTodoFailure({ error }))),
         ),
@@ -78,8 +81,7 @@ export class TodosEffects {
       ofType(deleteExpiredTodos),
       switchMap(() =>
         this.todosApiService.deleteExpiredTodos().pipe(
-          take(2),
-          switchMap(() => [deleteExpiredTodosSuccess(), loadTodos()]),
+          switchMap(() => [deleteExpiredTodosSuccess()]), // если добавит тут загрузку, получается бесконечный цикл
           catchError((error) => of(deleteExpiredTodosFailure({ error }))),
         ),
       ),

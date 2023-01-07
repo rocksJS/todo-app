@@ -5,7 +5,7 @@ export const settingsFeatureSelector = createFeatureSelector<ISettingsState>('se
 
 export const settingsSelector = createSelector(settingsFeatureSelector, (state: ISettingsState) => state.settings);
 
-export const settingsIsDeleteExpiredTasks = createSelector(
+export const settingsIsDeleteExpiredTodos = createSelector(
   settingsFeatureSelector,
   (state: ISettingsState) => state.settings[0]?.isSelected,
 );

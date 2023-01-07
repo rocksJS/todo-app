@@ -2,13 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Store } from '@ngrx/store';
-import { from, map, Observable, of } from 'rxjs';
-import { settingsSelector } from 'src/app/ngrx/selectors/settings.selectors';
+import { from, map, Observable } from 'rxjs';
 import { todosSelector } from 'src/app/ngrx/selectors/todo.selectors';
 import { environment } from 'src/environments/environment';
 import { ITodo } from '../interfaces/todo.interface';
 import { listIdMapper } from '../utils/list-id-mapper';
-import { SettingsApiService } from './settings-api.service';
 @Injectable({ providedIn: 'root' })
 export class TodosApiService {
   public endPoints = {
@@ -19,12 +17,7 @@ export class TodosApiService {
 
   public readonly todosRef = this.realtimeDb.list<ITodo>(this.endPoints.todos);
 
-  constructor(
-    private realtimeDb: AngularFireDatabase,
-    private http: HttpClient,
-    private store: Store,
-    private settingsApiService: SettingsApiService,
-  ) {}
+  constructor(private realtimeDb: AngularFireDatabase, private http: HttpClient, private store: Store) {}
 
   public getTodos(): Observable<ITodo[]> {
     return this.http.get(environment.apiURL + this.endPoints.todos + this.endPoints.json).pipe(map((item) => listIdMapper(item)));
@@ -51,9 +44,6 @@ export class TodosApiService {
   }
 
   public deleteExpiredTodos(): Observable<any> {
-    if (this.store.select(settingsSelector).pipe()) {
-      return this.getExpiredSelectedTodos().pipe(map((todos) => todos.forEach((todo: ITodo) => this.todosRef.remove(todo.id))));
-    }
-    return of(new Error());
+    return this.getExpiredSelectedTodos().pipe(map((todos) => todos.forEach((todo: ITodo) => this.todosRef.remove(todo.id))));
   }
 }

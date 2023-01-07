@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { deleteSelectedTodos } from 'src/app/ngrx/actions/todo.actions';
 import { SETTINGS_PATH } from 'src/app/shared/constants/route-path.consts';
-import { AddTaskComponent } from '../add-task/add-task.component';
+import { AddTaskComponent } from 'src/app/modals/add-task/add-task.component';
 @Component({
   selector: 'todo-header',
   templateUrl: './header.component.html',
@@ -11,7 +11,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  public readonly settingsPath = SETTINGS_PATH;
+  public readonly settingsPath = SETTINGS_PATH.path;
 
   constructor(public dialogRef: MatDialog, private store: Store) {}
 

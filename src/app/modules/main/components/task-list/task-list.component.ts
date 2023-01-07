@@ -21,7 +21,8 @@ export class TaskListComponent implements OnInit {
     this.todos$ = this.store.select(todosSelector);
   }
 
-  public changeTodoSelection(event: MatSelectionListChange) {
+  public changeTodoSelection(event: MatSelectionListChange): void {
+    console.log(event.option.value, 'changeTodoSelection value');
     this.store.dispatch(updateTodo({ todo: event.option.value }));
   }
 }

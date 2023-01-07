@@ -3,20 +3,19 @@
   height: 100%;
   display: flex;
   justify-content: center;
-}
 
-::ng-deep {
-  .mat-button.mat-accent,
-  .mat-icon-button.mat-accent,
-  .mat-stroked-button.mat-accent {
-    color: black;
+  ::ng-deep {
+    .mat-button.mat-accent,
+    .mat-icon-button.mat-accent,
+    .mat-stroked-button.mat-accent {
+      color: black;
+    }
   }
 }
 
 .container {
   width: 400px;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
@@ -26,7 +25,9 @@
 }
 
 .buttons {
-  cursor: pointer;
+  &-item {
+    cursor: pointer;
+  }
   display: flex;
   gap: 10px;
 }

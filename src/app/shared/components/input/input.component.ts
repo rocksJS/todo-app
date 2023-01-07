@@ -1,13 +1,19 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
 
 @Component({
   selector: 'todo-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [MatFormFieldModule, CommonModule, ReactiveFormsModule, MatInputModule],
 })
 export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
+  @Input() underline: any;
+
   public value = '';
 
   public control = new FormControl(null);
