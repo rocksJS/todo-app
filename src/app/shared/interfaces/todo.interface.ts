@@ -1,6 +1,6 @@
 export interface ITodo {
   title: string;
   isSelected?: boolean;
-  expDate?: number;
+  creationDate?: number;
   id?: string;
 }

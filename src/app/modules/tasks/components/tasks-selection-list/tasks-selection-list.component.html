@@ -1,0 +1,5 @@
+<mat-selection-list (selectionChange)="changeTodoSelection($event)" color="warn">
+  <mat-list-option *ngFor="let todo of todos" [value]="todo" [selected]="todo.isSelected">
+    {{ todo.title | uppercase }}
+  </mat-list-option>
+</mat-selection-list>

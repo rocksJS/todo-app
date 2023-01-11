@@ -9,36 +9,26 @@
       font-family: EuropeExt;
     }
 
-    .mat-form-field {
-      .mat-form-field-underline {
-        /*change color of underline*/
-        background-color: var(--warn-red) !important;
-      }
-
-      .mat-form-field-ripple {
-        /*change color of underline when focused*/
-        background-color: var(--warn-red) !important;
-      }
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+      background-color: var(--invalid-input-gray) !important;
     }
-    // настроить рипл в материале
-    .mat-form-field-invalid {
-      .mat-form-field-underline {
-        /*change color of underline*/
-        background-color: var(--invalid-input-gray) !important;
-      }
 
+    .mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple {
+      background-color: var(--invalid-input-gray) !important;
+    }
+
+    .mat-form-field {
       .mat-form-field-ripple {
-        /*change color of underline when focused*/
-        background-color: var(--invalid-input-gray) !important;
+        background-color: var(--warn-red) !important;
       }
     }
   }
-}
 
-.form-field {
-  width: 100%;
+  .form-field {
+    width: 100%;
 
-  &-input {
-    text-transform: uppercase;
+    &-input {
+      text-transform: uppercase;
+    }
   }
 }

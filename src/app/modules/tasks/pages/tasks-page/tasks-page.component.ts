@@ -7,12 +7,12 @@ import { todosSelector } from 'src/app/ngrx/selectors/todo.selectors';
 import { ITodo } from 'src/app/shared/interfaces/todo.interface';
 
 @Component({
-  selector: 'todo-task-list',
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.scss'],
+  selector: 'todo-tasks-page',
+  templateUrl: './tasks-page.component.html',
+  styleUrls: ['./tasks-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskListComponent implements OnInit {
+export class TasksPageComponent implements OnInit {
   public todos$: Observable<ITodo[]>;
 
   constructor(private store: Store) {}
@@ -22,7 +22,7 @@ export class TaskListComponent implements OnInit {
   }
 
   public changeTodoSelection(event: MatSelectionListChange): void {
-    console.log(event.option.value, 'changeTodoSelection value');
+    // тут необходимо брать value, ибо внутри лежит id, isSelected, если брать с option - свойство _selected приватное
     this.store.dispatch(updateTodo({ todo: event.option.value }));
   }
 }

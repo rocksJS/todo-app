@@ -1,3 +1,6 @@
 <div class="container">
-  <todo-selection-list [options$]="settings$" (optionEmitter)="changeIsDeleteExpTodos($event)"></todo-selection-list>
+  <todo-settings-selection-list
+    [settings]="settings$ | async"
+    (settingSelectionChangeEmitter)="changeIsDeleteExpTodos($event)"
+  ></todo-settings-selection-list>
 </div>

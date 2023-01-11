@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 
@@ -12,8 +12,6 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
   imports: [MatFormFieldModule, CommonModule, ReactiveFormsModule, MatInputModule],
 })
 export class InputComponent implements OnInit, DoCheck, ControlValueAccessor {
-  @Input() underline: any;
-
   public value = '';
 
   public control = new FormControl(null);

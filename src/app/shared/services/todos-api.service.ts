@@ -40,7 +40,7 @@ export class TodosApiService {
   }
 
   public getExpiredSelectedTodos(): Observable<any> {
-    return this.getSelectedTodos().pipe(map((todos) => todos.filter((todo) => (Date.now() - todo.expDate > 86400000 ? true : false))));
+    return this.getSelectedTodos().pipe(map((todos) => todos.filter((todo) => (Date.now() - todo.creationDate > 86400000 ? true : false))));
   }
 
   public deleteExpiredTodos(): Observable<any> {

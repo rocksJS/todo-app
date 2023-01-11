@@ -1,9 +1,9 @@
 <div class="container">
-  <todo-selection-list
+  <todo-tasks-selection-list
+    (todoSelectionChangeEmitter)="changeTodoSelection($event)"
     *ngIf="todos$ | async; else noTodos"
-    [options$]="todos$"
-    (optionEmitter)="changeTodoSelection($event)"
-  ></todo-selection-list>
+    [todos]="todos$ | async"
+  ></todo-tasks-selection-list>
 </div>
 
 <ng-template #noTodos>

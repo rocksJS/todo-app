@@ -1,5 +1,0 @@
-<mat-selection-list (selectionChange)="changeSelection($event)" color="warn">
-  <mat-list-option *ngFor="let option of options$ | async" [value]="option" [selected]="option.isSelected">
-    {{ option.title | uppercase }}
-  </mat-list-option>
-</mat-selection-list>

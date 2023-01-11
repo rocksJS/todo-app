@@ -33,7 +33,7 @@ export class AddTaskComponent implements OnInit {
     let newTodo: ITodo = {
       title: this.titleControl.getRawValue(),
       isSelected: false,
-      expDate: Date.now(),
+      creationDate: Date.now(),
     };
 
     this.store.dispatch(createTodo({ todo: newTodo }));

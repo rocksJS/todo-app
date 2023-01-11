@@ -1,4 +1,4 @@
 <div class="container">
-  <todo-input [formControl]="titleControl"></todo-input>
-  <button (click)="todoSubmit()" [disabled]="titleControl.invalid" mat-raised-button color="warn">Add todo</button>
+  <todo-input (keyup.enter)="todoSubmit()" [formControl]="titleControl"></todo-input>
+  <button class="add-button" (click)="todoSubmit()" [disabled]="titleControl.invalid" mat-raised-button color="warn">ADD TODO</button>
 </div>

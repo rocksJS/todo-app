@@ -1,11 +1,7 @@
 export interface ISettings {
   isSelected: boolean;
-  deleteTimeOut: {};
-  isDeleteExpiredTodos: {
-    title: string;
-    value: boolean;
-  };
-  id?: string;
+  title: string;
+  id: string;
 }
 
 export interface IDeleteExpiredSetting {
