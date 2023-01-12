@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { updateTodo } from 'src/app/ngrx/actions/todo.actions';
@@ -21,8 +20,9 @@ export class TasksPageComponent implements OnInit {
     this.todos$ = this.store.select(todosSelector);
   }
 
-  public changeTodoSelection(event: MatSelectionListChange): void {
+  public changeTodoSelection(event: ITodo): void {
+    console.log(event);
     // тут необходимо брать value, ибо внутри лежит id, isSelected, если брать с option - свойство _selected приватное
-    this.store.dispatch(updateTodo({ todo: event.option.value }));
+    this.store.dispatch(updateTodo({ todo: event }));
   }
 }

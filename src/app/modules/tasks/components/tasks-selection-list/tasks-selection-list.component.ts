@@ -14,6 +14,6 @@ export class TasksSelectionListComponent {
   @Output() public todoSelectionChangeEmitter = new EventEmitter();
 
   public changeTodoSelection(event: MatSelectionListChange): void {
-    this.todoSelectionChangeEmitter.emit(event);
+    this.todoSelectionChangeEmitter.emit(event.option.value);
   }
 }
