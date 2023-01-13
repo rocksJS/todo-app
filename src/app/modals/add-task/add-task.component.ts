@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { createTodo } from 'src/app/ngrx/actions/todo.actions';
 import { InputComponent } from 'src/app/shared/components/input/input.component';
 import { ITodo } from 'src/app/shared/interfaces/todo.interface';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'todo-add-task',
@@ -34,6 +35,7 @@ export class AddTaskComponent implements OnInit {
       title: this.titleControl.getRawValue(),
       isSelected: false,
       creationDate: Date.now(),
+      id: uuid.v4(),
     };
 
     this.store.dispatch(createTodo({ todo: newTodo }));

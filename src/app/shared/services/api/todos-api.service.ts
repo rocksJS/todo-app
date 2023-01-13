@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Store } from '@ngrx/store';
-import { from, map, Observable, of, take } from 'rxjs';
+import { from, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ITodo } from '../../interfaces/todo.interface';
 import { listIdMapper } from '../../utils/list-id-mapper';
 import { TodosService } from '../todos.service';
+
 @Injectable({ providedIn: 'root' })
 export class TodosApiService {
   public endPoints = {
@@ -29,7 +30,7 @@ export class TodosApiService {
   }
 
   public createTodo(todo: ITodo): Observable<any> {
-    return from(this.todosRef.push(todo));
+    return from(this.todosRef.set(todo.id, todo));
   }
 
   public updateTodo(todo: ITodo): Observable<any> {
@@ -39,8 +40,6 @@ export class TodosApiService {
   public deleteSelectedTodos(selectedTodos: ITodo[]): Observable<Observable<void>[]> {
     return of(selectedTodos.map((todo: ITodo) => from(this.todosRef.remove(todo.id))));
   }
-
-  // from(selectedTodos.forEach((todo: ITodo) => this.todosRef.remove(todo.id)));
 
   public deleteExpiredTodos(): Observable<any> {
     return this.todosService.getExpiredSelectedTodos().pipe(map((todos) => todos.forEach((todo: ITodo) => this.todosRef.remove(todo.id))));

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { filter, map, take } from 'rxjs';
 import { AddTaskComponent } from 'src/app/modals/add-task/add-task.component';
 import { deleteSelectedTodos } from 'src/app/ngrx/actions/todo.actions';
-import { selectedTodosSelector, todosSelector } from 'src/app/ngrx/selectors/todo.selectors';
+import { todosSelector } from 'src/app/ngrx/selectors/todo.selectors';
 import { SETTINGS_PATH } from 'src/app/shared/constants/route-path.consts';
 import { ITodo } from 'src/app/shared/interfaces/todo.interface';
 @Component({

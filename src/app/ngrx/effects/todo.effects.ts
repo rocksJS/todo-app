@@ -29,7 +29,7 @@ export class TodosEffects {
         this.todosApiService.getTodos().pipe(
           take(1),
           map((todos: any) => {
-            if (todos) {
+            if (todos.length) {
               return loadTodosSuccess({ todos });
             }
           }),
