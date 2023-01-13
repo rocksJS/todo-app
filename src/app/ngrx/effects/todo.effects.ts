@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, take } from 'rxjs';
-import { TodosApiService } from 'src/app/shared/services/todos-api.service';
+import { ITodo } from 'src/app/shared/interfaces/todo.interface';
+import { TodosApiService } from 'src/app/shared/services/api/todos-api.service';
 import {
   createTodo,
   createTodoFailure,
   createTodoSuccess,
-  deleteExpiredTodos,
-  deleteExpiredTodosFailure,
-  deleteExpiredTodosSuccess,
   deleteSelectedTodos,
   deleteSelectedTodosFailure,
   deleteSelectedTodosSuccess,
@@ -30,8 +28,27 @@ export class TodosEffects {
       switchMap(() =>
         this.todosApiService.getTodos().pipe(
           take(1),
-          map((todos: any) => loadTodosSuccess({ todos })),
+          map((todos: any) => {
+            if (todos) {
+              return loadTodosSuccess({ todos });
+            }
+          }),
           catchError((error) => of(loadTodosFailure({ error }))),
+        ),
+      ),
+    ),
+  );
+
+  updateTodo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateTodo),
+      switchMap((action) =>
+        this.todosApiService.updateTodo(action.todo).pipe(
+          map((todo: ITodo) => {
+            todo = action.todo;
+            return updateTodoSuccess({ todo });
+          }),
+          catchError((error) => of(updateTodoFailure({ error }))),
         ),
       ),
     ),
@@ -40,10 +57,13 @@ export class TodosEffects {
   deleteSelectedTodos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteSelectedTodos),
-      switchMap(() =>
-        this.todosApiService.deleteSelectedTodos().pipe(
+      switchMap((action) =>
+        this.todosApiService.deleteSelectedTodos(action.todos).pipe(
           take(1),
-          switchMap((todos: any) => [deleteSelectedTodosSuccess({ todos }), loadTodos()]),
+          map(() => {
+            const todos = action.todos;
+            return deleteSelectedTodosSuccess({ todos });
+          }),
           catchError((error) => of(deleteSelectedTodosFailure({ error }))),
         ),
       ),
@@ -56,33 +76,11 @@ export class TodosEffects {
       switchMap((action) =>
         this.todosApiService.createTodo(action.todo).pipe(
           take(1),
-          switchMap(() => [createTodoSuccess(), loadTodos()]),
+          map((todo: ITodo) => {
+            todo = action.todo;
+            return createTodoSuccess({ todo });
+          }),
           catchError((error) => of(createTodoFailure({ error }))),
-        ),
-      ),
-    ),
-  );
-
-  updateTodo$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(updateTodo),
-      switchMap((action) =>
-        this.todosApiService.updateTodo(action.todo).pipe(
-          take(1),
-          switchMap(() => [updateTodoSuccess(), loadTodos()]),
-          catchError((error) => of(updateTodoFailure({ error }))),
-        ),
-      ),
-    ),
-  );
-
-  deleteExpiredTodos$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(deleteExpiredTodos),
-      switchMap(() =>
-        this.todosApiService.deleteExpiredTodos().pipe(
-          switchMap(() => [deleteExpiredTodosSuccess()]), // если добавит тут загрузку, получается бесконечный цикл
-          catchError((error) => of(deleteExpiredTodosFailure({ error }))),
         ),
       ),
     ),

@@ -14,6 +14,6 @@ export class SettingsSelectionListComponent {
   @Output() public settingSelectionChangeEmitter = new EventEmitter();
 
   public changeSettingSelection(event: MatSelectionListChange): void {
-    this.settingSelectionChangeEmitter.emit(event);
+    this.settingSelectionChangeEmitter.emit(event.option.selected);
   }
 }

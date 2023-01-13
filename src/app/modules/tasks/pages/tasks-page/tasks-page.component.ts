@@ -21,8 +21,6 @@ export class TasksPageComponent implements OnInit {
   }
 
   public changeTodoSelection(event: ITodo): void {
-    console.log(event);
-    // тут необходимо брать value, ибо внутри лежит id, isSelected, если брать с option - свойство _selected приватное
     this.store.dispatch(updateTodo({ todo: event }));
   }
 }

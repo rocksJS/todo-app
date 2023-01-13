@@ -1,7 +1,7 @@
 <div class="container">
   <todo-tasks-selection-list
     (todoSelectionChangeEmitter)="changeTodoSelection($event)"
-    *ngIf="todos$ | async; else noTodos"
+    *ngIf="(todos$ | async)?.length > 0; else noTodos"
     [todos]="todos$ | async"
   ></todo-tasks-selection-list>
 </div>

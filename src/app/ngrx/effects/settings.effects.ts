@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { SettingsApiService } from 'src/app/shared/services/settings-api.service';
+import { SettingsApiService } from 'src/app/shared/services/api/settings-api.service';
 import {
   changeTemporaryTaskDelete,
   changeTemporaryTaskDeleteFailure,

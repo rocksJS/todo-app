@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { changeTemporaryTaskDelete } from 'src/app/ngrx/actions/settings.action';
@@ -20,7 +19,7 @@ export class SettingsPageComponent implements OnInit {
     this.settings$ = this.store.select(settingsSelector);
   }
 
-  public changeIsDeleteExpTodos(event: MatSelectionListChange): void {
-    this.store.dispatch(changeTemporaryTaskDelete({ setting: event.option.selected }));
+  public changeIsDeleteExpTodos(event: boolean): void {
+    this.store.dispatch(changeTemporaryTaskDelete({ setting: event }));
   }
 }

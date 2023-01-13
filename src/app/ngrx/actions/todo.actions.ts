@@ -9,24 +9,18 @@ export const loadTodosFailure = createAction('[TODOS] Load Todos Failure', props
 
 export const createTodo = createAction('[TODOS] Create Todo', props<{ todo: ITodo }>());
 
-export const createTodoSuccess = createAction('[TODOS] Create Todo Success');
+export const createTodoSuccess = createAction('[TODOS] Create Todo Success', props<{ todo: ITodo }>());
 
 export const createTodoFailure = createAction('[TODOS] Create Todo Failure', props<{ error: string }>());
 
 export const updateTodo = createAction('[TODOS] Update Todo', props<{ todo: ITodo }>());
 
-export const updateTodoSuccess = createAction('[TODOS] Update Todo Success');
+export const updateTodoSuccess = createAction('[TODOS] Update Todo Success', props<{ todo: ITodo }>());
 
 export const updateTodoFailure = createAction('[TODOS] Update Todo Failure', props<{ error: string }>());
 
-export const deleteSelectedTodos = createAction('[TODOS] Deleted Selected Todos');
+export const deleteSelectedTodos = createAction('[TODOS] Delete Selected Todos', props<{ todos: ITodo[] }>());
 
-export const deleteSelectedTodosSuccess = createAction('[TODOS] Delete Selected Todos Success', props<{ todos: ITodo }>());
+export const deleteSelectedTodosSuccess = createAction('[TODOS] Delete Selected Todos Success', props<{ todos: ITodo[] }>());
 
 export const deleteSelectedTodosFailure = createAction('[TODOS] Delete Selected Todos Failure', props<{ error: string }>());
-
-export const deleteExpiredTodos = createAction('[SETTINGS] Delete Expired Todos');
-
-export const deleteExpiredTodosSuccess = createAction('[SETTINGS] Delete Expired Todos Success');
-
-export const deleteExpiredTodosFailure = createAction('[SETTINGS] Delete Expired Todos Failure', props<{ error: string }>());
