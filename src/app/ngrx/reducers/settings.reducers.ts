@@ -1,18 +1,27 @@
 import { createReducer, on } from '@ngrx/store';
-import { ISettings } from 'src/app/shared/interfaces/settings.interface';
-import { loadSettingsSuccess } from '../actions/settings.action';
+import { ISetting } from 'src/app/shared/interfaces/settings.interface';
+import { changeAutomaticDeleteSelectionSettingSuccess, loadSettingsSuccess } from '../actions/settings.actions';
 
 export interface ISettingsState {
-  settings: ISettings[];
+  settingsList: { [key: string]: ISetting };
 }
 
 const initialState: ISettingsState = {
-  settings: [],
+  settingsList: {},
 };
 export const settingsReducer = createReducer(
   initialState,
-  on(loadSettingsSuccess, (state, { settings }) => ({
+  on(loadSettingsSuccess, (state, { settingsList }) => ({
     ...state,
-    settings: settings,
+    settingsList,
+  })),
+  on(changeAutomaticDeleteSelectionSettingSuccess, (state, { setting }) => ({
+    ...state,
+    settingsList: {
+      ...state.settingsList,
+      automaticDeleteSetting: {
+        ...setting,
+      },
+    },
   })),
 );

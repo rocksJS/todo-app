@@ -1,17 +1,15 @@
 <div class="container">
   <todo-tasks-selection-list
     (todoSelectionChangeEmitter)="changeTodoSelection($event)"
-    *ngIf="(todos$ | async)?.length > 0; else noTodos"
+    *ngIf="(todos$ | async)?.length > 0"
     [todos]="todos$ | async"
   ></todo-tasks-selection-list>
-</div>
 
-<ng-template #noTodos>
-  <div class="no-todos">
+  <div *ngIf="(todos$ | async)?.length === 0" class="no-todos">
     <img class="no-todos-img" src="../../../../../assets/imgs/no-todos.png" alt="" />
     <p class="no-todos-template">
       NO TASKS FOR TODAY. <br />
       ENJOY YOUR DAY!
     </p>
   </div>
-</ng-template>
+</div>

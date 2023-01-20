@@ -1,2 +1,8 @@
-<todo-header></todo-header>
-<router-outlet></router-outlet>
+<div class="container">
+  <todo-header></todo-header>
+  <todo-spinner *ngIf="requestsCount$ | async; else routerOutlet"></todo-spinner>
+</div>
+
+<ng-template #routerOutlet>
+  <router-outlet></router-outlet>
+</ng-template>

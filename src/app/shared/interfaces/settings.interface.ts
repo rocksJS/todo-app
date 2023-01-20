@@ -1,11 +1,7 @@
-export interface ISettings {
-  isSelected: boolean;
+export interface ISetting {
   title: string;
   id: string;
-}
+  isSelected?: boolean;
 
-export interface IDeleteExpiredSetting {
-  isSelected: boolean;
-  title: string;
-  id: string;
+  [key: string]: string | boolean;
 }

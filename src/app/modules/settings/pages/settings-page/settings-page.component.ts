@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { changeTemporaryTaskDelete } from 'src/app/ngrx/actions/settings.action';
+import { changeAutomaticDeleteSelectionSetting } from 'src/app/ngrx/actions/settings.actions';
 import { settingsSelector } from 'src/app/ngrx/selectors/settings.selectors';
+import { ISetting } from 'src/app/shared/interfaces/settings.interface';
 
 @Component({
   selector: 'todo-settings-page',
@@ -11,15 +12,15 @@ import { settingsSelector } from 'src/app/ngrx/selectors/settings.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsPageComponent implements OnInit {
-  public settings$: Observable<any>;
+  public settingsList$: Observable<{ [key: string]: ISetting }>;
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.settings$ = this.store.select(settingsSelector);
+    this.settingsList$ = this.store.select(settingsSelector);
   }
 
-  public changeIsDeleteExpTodos(event: boolean): void {
-    this.store.dispatch(changeTemporaryTaskDelete({ setting: event }));
+  public changeIsDeleteExpTodos(event: ISetting): void {
+    this.store.dispatch(changeAutomaticDeleteSelectionSetting({ setting: event }));
   }
 }

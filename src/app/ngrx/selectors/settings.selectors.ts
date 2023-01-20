@@ -3,9 +3,9 @@ import { ISettingsState } from '../reducers/settings.reducers';
 
 export const settingsFeatureSelector = createFeatureSelector<ISettingsState>('settings');
 
-export const settingsSelector = createSelector(settingsFeatureSelector, (state: ISettingsState) => state.settings);
+export const settingsSelector = createSelector(settingsFeatureSelector, (state: ISettingsState) => state.settingsList);
 
-export const settingsIsDeleteExpiredTodos = createSelector(
+export const automaticDeleteSettingSelector = createSelector(
   settingsFeatureSelector,
-  (state: ISettingsState) => state.settings[0]?.isSelected,
+  (state: ISettingsState) => state.settingsList.automaticDeleteSetting,
 );

@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { filter, map, take } from 'rxjs';
+import { map, take } from 'rxjs';
 import { AddTaskComponent } from 'src/app/modals/add-task/add-task.component';
 import { deleteSelectedTodos } from 'src/app/ngrx/actions/todo.actions';
-import { todosSelector } from 'src/app/ngrx/selectors/todo.selectors';
+import { selectedTodosSelector } from 'src/app/ngrx/selectors/todo.selectors';
 import { SETTINGS_PATH } from 'src/app/shared/constants/route-path.consts';
-import { ITodo } from 'src/app/shared/interfaces/todo.interface';
 @Component({
   selector: 'todo-header',
   templateUrl: './header.component.html',
@@ -24,12 +23,10 @@ export class HeaderComponent {
 
   public deleteSelectedTodos(): void {
     this.store
-      .select(todosSelector)
+      .select(selectedTodosSelector)
       .pipe(
-        filter((todos) => todos),
         take(1),
-        map((todos) => {
-          let selectedTodos = todos.filter((item: ITodo) => item.isSelected);
+        map((selectedTodos) => {
           this.store.dispatch(deleteSelectedTodos({ todos: selectedTodos }));
         }),
       )

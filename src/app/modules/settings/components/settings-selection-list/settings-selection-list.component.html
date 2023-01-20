@@ -1,5 +1,5 @@
 <mat-selection-list (selectionChange)="changeSettingSelection($event)" color="warn">
-  <mat-list-option *ngFor="let setting of settings" [value]="setting" [selected]="setting.isSelected">
-    {{ setting.title | uppercase }}
+  <mat-list-option *ngFor="let setting of settingsList | keyvalue" [value]="setting.value" [selected]="setting.value.isSelected">
+    {{ setting.value.title | uppercase }}
   </mat-list-option>
 </mat-selection-list>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap, take } from 'rxjs';
+import { catchError, map, of, switchMap, take, filter } from 'rxjs';
 import { ITodo } from 'src/app/shared/interfaces/todo.interface';
 import { TodosApiService } from 'src/app/shared/services/api/todos-api.service';
 import {
@@ -28,10 +28,9 @@ export class TodosEffects {
       switchMap(() =>
         this.todosApiService.getTodos().pipe(
           take(1),
+          filter((todos) => !!todos.length),
           map((todos: any) => {
-            if (todos.length) {
-              return loadTodosSuccess({ todos });
-            }
+            return loadTodosSuccess({ todos });
           }),
           catchError((error) => of(loadTodosFailure({ error }))),
         ),

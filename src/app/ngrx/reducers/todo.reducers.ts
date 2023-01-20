@@ -3,7 +3,7 @@ import { ITodo } from 'src/app/shared/interfaces/todo.interface';
 import { createTodoSuccess, deleteSelectedTodosSuccess, loadTodosSuccess, updateTodoSuccess } from '../actions/todo.actions';
 
 export interface ITodoState {
-  todos: ITodo | any;
+  todos: ITodo[];
 }
 
 const initialState: ITodoState = {
@@ -16,18 +16,16 @@ export const todoReducer = createReducer(
     ...state,
     todos: todos,
   })),
-
   on(createTodoSuccess, (state, { todo }) => ({
     ...state,
     todos: [...state.todos, { ...todo }],
   })),
-
   on(updateTodoSuccess, (state, { todo }) => ({
     ...state,
     todos: state.todos.map((item: ITodo) => (item.id === todo.id ? todo : item)),
   })),
-  on(deleteSelectedTodosSuccess, (state) => ({
+  on(deleteSelectedTodosSuccess, (state, { todos }) => ({
     ...state,
-    todos: state.todos.filter((item: ITodo) => !item.isSelected),
+    todos: state.todos.filter((item: ITodo) => todos.indexOf(item) === -1),
   })),
 );

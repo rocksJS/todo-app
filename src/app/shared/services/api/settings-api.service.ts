@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { from, map, Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { listIdMapper } from '../../utils/list-id-mapper';
+import { ISetting } from '../../interfaces/settings.interface';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsApiService {
@@ -17,8 +17,10 @@ export class SettingsApiService {
 
   public readonly settingsRef = this.realtimeDb.list<any>(this.endPoints.settings);
 
+  public readonly automaticDeletesettingsRef = this.realtimeDb.list<any>(this.endPoints.automaticDeleteSetting);
+
   public getSettings(): Observable<any> {
-    return this.http.get(environment.apiURL + this.endPoints.settings + this.endPoints.json).pipe(map((item) => listIdMapper(item)));
+    return this.http.get(environment.apiURL + this.endPoints.settings + this.endPoints.json);
   }
 
   public isDeleteExpiredTodos(): Observable<any> {
@@ -27,7 +29,7 @@ export class SettingsApiService {
     );
   }
 
-  public changeIsDeleteExpiredTodos(isDelete: boolean): Observable<any> {
-    return from(this.settingsRef.update(this.endPoints.automaticDeleteSetting, { isSelected: isDelete }));
+  public changeIsDeleteExpiredTodos(setting: ISetting): Observable<any> {
+    return from(this.settingsRef.update(setting.id, { isSelected: setting.isSelected }));
   }
 }
