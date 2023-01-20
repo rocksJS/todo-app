@@ -8,16 +8,16 @@ export const loadSettingsSuccess = createAction('[SETTINGS] Load Settings Succes
 export const loadSettingsFailure = createAction('[SETTINGS] Load Settings Failure', props<{ error: string }>());
 
 export const changeAutomaticDeleteSelectionSetting = createAction(
-  '[SETTINGS] Change Automatic Delete Setting',
+  '[SETTINGS] Change Automatic Delete Setting Selection',
   props<{ setting: ISetting }>(),
 );
 
 export const changeAutomaticDeleteSelectionSettingSuccess = createAction(
-  '[SETTINGS] Change Automatic Delete Setting Success',
+  '[SETTINGS] Change Automatic Delete Setting Selection Success',
   props<{ setting: ISetting }>(),
 );
 
 export const changeAutomaticDeleteSelectionSettingFailure = createAction(
-  '[SETTINGS] Change Automatic Delete Setting Failure',
+  '[SETTINGS] Change Automatic Delete Setting SelectionFailure',
   props<{ error: string }>(),
 );
